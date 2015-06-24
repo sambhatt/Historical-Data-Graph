@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="http://code.highcharts.com/stock/highstock.js"></script>
+		<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+	</head>
+	<body>
+		<div id="container" style="height: 650px; width: auto"></div>
+		<script>
+			var final_data={{ response_data|safe }};
+			var date=[];
+			var pur_data=[];
+			var sal_data=[];
+			$(function () {
+			for(data in final_data){
+				date.push(final_data[data][0]);
+				pur_data.push(final_data[data][1]);
+				sal_data.push(final_data[data][2]);
+			}
+        // Create the chart
+        $('#container').highcharts({
+			rangeSelector : {
+                selected : 1
+            },
+			chart: {
+            type: 'line',
+            zoomType: 'x'
+        },
+        title: {
+            text: 'FII Historical Data'
+        },
+        subtitle: {
+            text: 'Click and drag to zoom in & click Reset zoom button to zoom out'
+        },
+        xAxis: {
+            categories: date
+        },
+        yAxis: {
+            title: {
+                text: 'Values (Crore)'
+            }
+        },
+        plotOptions: {
+            line: {
+                enableMouseTracking: true
+            }
+        },
+        tooltip: {
+            valueSuffix: ' Cr'
+        },
+        series: [{
+            name: 'Gross Purchase',
+            data: pur_data
+        }, {
+            name: 'Gross Sales',
+            data: sal_data
+        }]
+        });
+
+});
+
+		</script>
+	</body>
+</html>
