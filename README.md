@@ -1,6 +1,6 @@
 # Historical-Data-Graph
 
-This is the upgraded version of previous one (Data-Scraping).
+This is the upgraded version of previous one (sambhatt/Data-Scraping).
 
 This project is on fetching historical FII investment details and show it in highchart graph.
 
